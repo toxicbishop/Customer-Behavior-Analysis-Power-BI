@@ -1,10 +1,10 @@
-Django
-djangorestframework
-mlflow
-scikit-learn
-xgboost
-pandas
-numpy
+Django==5.2.12
+djangorestframework==3.17.0
+mlflow==3.10.1
+scikit-learn==1.7.2
+xgboost==3.2.0
+pandas==2.3.3
+numpy==2.2.6
 matplotlib
 seaborn
 ipykernel

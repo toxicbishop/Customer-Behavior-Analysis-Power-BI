@@ -1,5 +1,11 @@
 # Customer Behavior Analysis & API
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-orange.svg)
+![Build Status](https://github.com/toxicbishop/Customer-Behavior-Analysis-Power-BI/actions/workflows/python-test.yml/badge.svg)
+
+
 This project demonstrates a complete end-to-end data analytics and machine learning workflow. It includes data processing, exploratory analysis, SQL querying, dashboarding, and a Django REST API for serving ML models.
 
 ## 📁 Project Structure
