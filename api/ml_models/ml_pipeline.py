@@ -8,8 +8,16 @@ from sklearn.ensemble import RandomForestClassifier
 
 # --- Data Loading ---
 def load_data():
-    df = pd.read_csv('../data/customer_shopping_behavior.csv')
-    # TODO: Add MySQL loading if needed
+    import os
+    # Get the directory where THIS file is located
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Go up 2 levels and into the data/ directory
+    data_path = os.path.join(current_dir, '..', '..', 'data', 'customer_shopping_behavior.csv')
+    
+    if not os.path.exists(data_path):
+        raise FileNotFoundError(f"Data file not found at: {data_path}")
+        
+    df = pd.read_csv(data_path)
     return df
 
 # --- Feature Engineering ---
