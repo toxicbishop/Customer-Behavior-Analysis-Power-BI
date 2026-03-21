@@ -11,8 +11,8 @@ def load_data():
     import os
     # Get the directory where THIS file is located
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    # Go up 2 levels and into the data/ directory
-    data_path = os.path.join(current_dir, '..', '..', 'data', 'customer_shopping_behavior.csv')
+    # Go up 2 levels and into the data/raw folder
+    data_path = os.path.join(current_dir, '..', '..', 'data', 'raw', 'customer_shopping_behavior.csv')
     
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"Data file not found at: {data_path}")
