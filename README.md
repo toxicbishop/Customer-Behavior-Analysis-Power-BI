@@ -31,24 +31,28 @@ customer_behavior_analysis/
 Serve predictions via Django REST Framework.
 
 ### Endpoints
+
 - `/segment/` : Customer segmentation
 - `/predict/` : Purchase prediction
 - `/churn/` : Churn prediction
 - `/recommend/` : Product recommendation
 
 ### Features
+
 - MLflow integration for model tracking.
 - Modular pipeline for training and deployment.
 
 ## 🛠 Setup & Installation
 
 1.  **Clone the Repository**
+
     ```bash
     git clone <repo_url>
     cd customer_behavior_analysis
     ```
 
 2.  **Environment Setup**
+
     ```bash
     python -m venv .venv
     source .venv/bin/activate  # On Windows: .venv\Scripts\activate
@@ -56,6 +60,7 @@ Serve predictions via Django REST Framework.
     ```
 
 3.  **Running the API**
+
     ```bash
     cd api
     python manage.py migrate
@@ -66,7 +71,9 @@ Serve predictions via Django REST Framework.
     Use Jupyter or run scripts in the `notebooks/` folder.
 
 ## 📈 Dashboard Preview
+
 ![Power BI Dashboard Screenshot](powerbi/dashboard_screenshot.png)
 
-## 📄 License
-MIT License
+## 📄License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

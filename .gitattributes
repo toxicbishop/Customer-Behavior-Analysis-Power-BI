@@ -1,0 +1,6 @@
+# Force GitHub to recognize Power BI files
+*.pbix linguist-language=PowerBuilder linguist-detectable=true
+*.pbit linguist-language=PowerBuilder linguist-detectable=true
+
+# Force GitHub to recognize SQL files
+*.sql linguist-detectable=true
