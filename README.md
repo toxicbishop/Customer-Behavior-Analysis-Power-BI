@@ -72,7 +72,7 @@ Serve predictions via Django REST Framework.
 
 ## 📈 Dashboard Preview
 
-![Power BI Dashboard Screenshot](powerbi/dashboard_screenshot.png)
+![Power BI Dashboard Screenshot](powerbi/dashboard.png)
 
 ## 📄License
 
