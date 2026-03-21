@@ -1,24 +1,48 @@
-# Data Dictionary
+# Data Dictionary (Star Schema Edition)
 
-This document describes the columns available in the `customer_shopping_behavior.csv` dataset.
+This document describes the columns and relationships in the structured `data/processed` directory.
 
+## 🏗 Schema Overview
+The data is now structured in a **Star Schema** (Dim/Fact model), which is industry standard for analytical workloads.
+
+---
+
+## 🛒 DIM_Products (`dim_products.csv`)
 | Column Name | Description | Data Type |
 |-------------|-------------|-----------|
-| **Customer ID** | Unique identifier for each customer. | Integer |
+| **Product ID** | Unique Identifier for each item/category combination. | Integer |
+| **Item Purchased** | Name of the product (e.g., Sandals, Hoodie). | String |
+| **Category** | High-level category (e.g., Clothing, Accessories). | String |
+
+## 👥 DIM_Customers (`dim_customers.csv`)
+| Column Name | Description | Data Type |
+|-------------|-------------|-----------|
+| **Customer ID** | Unique identifier for the customer. | Integer |
 | **Age** | Age of the customer. | Integer |
-| **Gender** | Gender profile of the customer. | String (Categorical) |
-| **Item Purchased** | Specific product purchased by the customer. | String |
-| **Category** | High-level category of the item (e.g., Clothing, Footwear). | String (Categorical) |
-| **Purchase Amount (USD)** | Total value of the transaction in US Dollars. | Float |
-| **Location** | Geographical location of the customer/order. | String |
-| **Size** | Size selection for the purchased item. | String |
-| **Color** | Color selection for the purchased item. | String |
-| **Season** | Seasonality of the purchase. | String |
-| **Review Rating** | Customer satisfaction score (1-5). | Float |
-| **Subscription Status** | Whether the customer is a subscriber. | String (Yes/No) |
-| **Shipping Type** | Logistics method used for delivery. | String |
-| **Discount Applied** | Indicates if a discount was utilized. | String (Yes/No) |
-| **Promo Code Used** | Indicates if a promotional code was used. | String (Yes/No) |
-| **Previous Purchases** | Total count of historical orders by this customer. | Integer |
-| **Payment Method** | Mode of payment used (e.g., Credit Card, PayPal). | String |
-| **Frequency of Purchases** | Loyalty metric indicating how often the customer shops. | String |
+| **Gender** | Gender profile. | String |
+| **Location** | Geographical state location. | String |
+| **Subscription Status** | Loyalty program membership indicator. | String |
+
+## 💰 FACT_Sales (`fact_sales.csv`)
+| Column Name | Description | Data Type |
+|-------------|-------------|-----------|
+| **Customer ID** | Key to `DIM_Customers`. | Integer |
+| **Product ID** | Key to `DIM_Products`. | Integer |
+| **Purchase Amount (USD)** | Total value of the transaction. | Float |
+| **Size / Color / Season** | Line item specific attributes. | String |
+| **Review Rating** | Numerical score given by customer. | Float |
+| **Previous Purchases** | History of customer engagement. | Integer |
+
+## 📝 Customer Reviews (`customer_reviews.csv`)
+| Column Name | Description | Data Type |
+|-------------|-------------|-----------|
+| **Customer ID** | Key to `DIM_Customers`. | Integer |
+| **Review Text** | Unstructured feedback from the customer. | Text |
+| **Review Date** | When the review was recorded. | Date |
+
+## 📦 Inventory Logs (`inventory_logs.csv`)
+| Column Name | Description | Data Type |
+|-------------|-------------|-----------|
+| **Product ID** | Key to `DIM_Products`. | Integer |
+| **Stock Level** | Current count of items in the warehouse. | Integer |
+| **Last Restock Date** | Date of recent inventory replenishment. | Date |

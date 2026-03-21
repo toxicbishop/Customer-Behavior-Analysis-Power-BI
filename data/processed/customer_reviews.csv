@@ -1,0 +1,501 @@
+Customer ID,Review Text,Review Date
+1,"Too small, need to return it.",2026-01-02
+2,Excellent customer service and fast delivery.,2026-02-20
+3,Best purchase I've made this year!,2026-02-15
+4,Standard shipping was slow but product is great.,2026-01-26
+5,Excellent customer service and fast delivery.,2026-03-22
+6,"Too small, need to return it.",2026-01-25
+7,Standard shipping was slow but product is great.,2026-01-14
+8,Standard shipping was slow but product is great.,2026-02-09
+9,"Amazing quality, fits perfectly!",2026-01-21
+10,Best purchase I've made this year!,2026-01-13
+11,"Too small, need to return it.",2026-02-20
+12,Best purchase I've made this year!,2026-03-10
+13,"Too small, need to return it.",2026-01-21
+14,Exactly what I was looking for.,2026-01-05
+15,The color is slightly different from the photo.,2026-02-28
+16,Exactly what I was looking for.,2026-01-27
+17,"Material feels cheap, wouldn't recommend.",2026-01-31
+18,Exactly what I was looking for.,2026-01-04
+19,Very disappointed with the material.,2026-02-16
+20,Standard shipping was slow but product is great.,2026-01-22
+21,"Material feels cheap, wouldn't recommend.",2026-02-13
+22,"Amazing quality, fits perfectly!",2026-01-27
+23,Excellent customer service and fast delivery.,2026-02-11
+24,Best purchase I've made this year!,2026-02-21
+25,Good value for money.,2026-01-28
+26,"Amazing quality, fits perfectly!",2026-01-04
+27,Exactly what I was looking for.,2026-02-10
+28,Standard shipping was slow but product is great.,2026-01-23
+29,Good value for money.,2026-03-04
+30,Excellent customer service and fast delivery.,2026-01-21
+31,Standard shipping was slow but product is great.,2026-02-27
+32,The color is slightly different from the photo.,2026-03-17
+33,"Amazing quality, fits perfectly!",2026-03-10
+34,"Too small, need to return it.",2026-03-09
+35,"Material feels cheap, wouldn't recommend.",2026-01-10
+36,Excellent customer service and fast delivery.,2026-01-07
+37,Exactly what I was looking for.,2026-02-06
+38,The color is slightly different from the photo.,2026-02-14
+39,Good value for money.,2026-01-02
+40,Best purchase I've made this year!,2026-01-23
+41,"Material feels cheap, wouldn't recommend.",2026-01-23
+42,Very disappointed with the material.,2026-02-16
+43,Very disappointed with the material.,2026-03-18
+44,The color is slightly different from the photo.,2026-01-24
+45,Very disappointed with the material.,2026-03-16
+46,"Amazing quality, fits perfectly!",2026-02-16
+47,Very disappointed with the material.,2026-02-25
+48,"Too small, need to return it.",2026-03-17
+49,Very disappointed with the material.,2026-01-25
+50,Very disappointed with the material.,2026-01-10
+51,Very disappointed with the material.,2026-01-01
+52,Good value for money.,2026-01-22
+53,Good value for money.,2026-03-15
+54,Exactly what I was looking for.,2026-02-16
+55,"Amazing quality, fits perfectly!",2026-01-08
+56,Standard shipping was slow but product is great.,2026-02-11
+57,The color is slightly different from the photo.,2026-02-16
+58,Excellent customer service and fast delivery.,2026-03-06
+59,The color is slightly different from the photo.,2026-03-08
+60,"Material feels cheap, wouldn't recommend.",2026-02-10
+61,"Amazing quality, fits perfectly!",2026-01-08
+62,Best purchase I've made this year!,2026-01-18
+63,Excellent customer service and fast delivery.,2026-03-15
+64,The color is slightly different from the photo.,2026-03-10
+65,Best purchase I've made this year!,2026-02-20
+66,Very disappointed with the material.,2026-02-03
+67,"Material feels cheap, wouldn't recommend.",2026-02-25
+68,"Material feels cheap, wouldn't recommend.",2026-02-03
+69,"Too small, need to return it.",2026-02-16
+70,Very disappointed with the material.,2026-02-23
+71,Good value for money.,2026-01-05
+72,Very disappointed with the material.,2026-02-18
+73,Very disappointed with the material.,2026-02-21
+74,Exactly what I was looking for.,2026-02-28
+75,Excellent customer service and fast delivery.,2026-03-16
+76,Excellent customer service and fast delivery.,2026-01-09
+77,Good value for money.,2026-01-11
+78,Very disappointed with the material.,2026-01-16
+79,"Material feels cheap, wouldn't recommend.",2026-02-17
+80,Excellent customer service and fast delivery.,2026-01-21
+81,"Material feels cheap, wouldn't recommend.",2026-03-02
+82,"Amazing quality, fits perfectly!",2026-01-16
+83,"Material feels cheap, wouldn't recommend.",2026-01-18
+84,Good value for money.,2026-01-22
+85,"Material feels cheap, wouldn't recommend.",2026-01-13
+86,Exactly what I was looking for.,2026-02-25
+87,Exactly what I was looking for.,2026-01-06
+88,Exactly what I was looking for.,2026-03-13
+89,Good value for money.,2026-01-05
+90,Best purchase I've made this year!,2026-01-02
+91,Good value for money.,2026-02-16
+92,"Amazing quality, fits perfectly!",2026-02-14
+93,The color is slightly different from the photo.,2026-01-22
+94,Best purchase I've made this year!,2026-03-13
+95,"Material feels cheap, wouldn't recommend.",2026-03-03
+96,"Amazing quality, fits perfectly!",2026-02-15
+97,Good value for money.,2026-02-02
+98,Good value for money.,2026-02-16
+99,Exactly what I was looking for.,2026-02-02
+100,Good value for money.,2026-01-13
+101,"Material feels cheap, wouldn't recommend.",2026-01-22
+102,Exactly what I was looking for.,2026-03-01
+103,Excellent customer service and fast delivery.,2026-01-09
+104,Exactly what I was looking for.,2026-01-10
+105,Very disappointed with the material.,2026-01-15
+106,"Material feels cheap, wouldn't recommend.",2026-03-12
+107,Best purchase I've made this year!,2026-01-31
+108,Very disappointed with the material.,2026-02-16
+109,Excellent customer service and fast delivery.,2026-01-15
+110,Very disappointed with the material.,2026-01-15
+111,The color is slightly different from the photo.,2026-01-11
+112,"Material feels cheap, wouldn't recommend.",2026-02-20
+113,Standard shipping was slow but product is great.,2026-03-02
+114,Standard shipping was slow but product is great.,2026-03-17
+115,Good value for money.,2026-02-24
+116,Good value for money.,2026-03-06
+117,"Material feels cheap, wouldn't recommend.",2026-03-06
+118,Exactly what I was looking for.,2026-02-28
+119,Standard shipping was slow but product is great.,2026-01-03
+120,Excellent customer service and fast delivery.,2026-01-10
+121,The color is slightly different from the photo.,2026-02-22
+122,Good value for money.,2026-02-15
+123,"Amazing quality, fits perfectly!",2026-03-16
+124,Exactly what I was looking for.,2026-02-08
+125,The color is slightly different from the photo.,2026-02-19
+126,Excellent customer service and fast delivery.,2026-01-12
+127,"Too small, need to return it.",2026-02-18
+128,"Too small, need to return it.",2026-01-06
+129,Very disappointed with the material.,2026-03-20
+130,Excellent customer service and fast delivery.,2026-03-01
+131,Best purchase I've made this year!,2026-03-03
+132,"Material feels cheap, wouldn't recommend.",2026-02-28
+133,"Too small, need to return it.",2026-02-19
+134,"Amazing quality, fits perfectly!",2026-01-28
+135,"Too small, need to return it.",2026-01-25
+136,Best purchase I've made this year!,2026-01-24
+137,Excellent customer service and fast delivery.,2026-02-06
+138,"Amazing quality, fits perfectly!",2026-02-08
+139,Best purchase I've made this year!,2026-03-21
+140,"Amazing quality, fits perfectly!",2026-01-24
+141,Standard shipping was slow but product is great.,2026-01-23
+142,"Material feels cheap, wouldn't recommend.",2026-03-05
+143,Exactly what I was looking for.,2026-01-15
+144,Very disappointed with the material.,2026-01-02
+145,"Too small, need to return it.",2026-02-27
+146,"Too small, need to return it.",2026-02-17
+147,The color is slightly different from the photo.,2026-03-15
+148,Exactly what I was looking for.,2026-01-04
+149,Best purchase I've made this year!,2026-01-02
+150,Very disappointed with the material.,2026-01-09
+151,Excellent customer service and fast delivery.,2026-03-12
+152,"Amazing quality, fits perfectly!",2026-02-22
+153,"Amazing quality, fits perfectly!",2026-01-28
+154,Very disappointed with the material.,2026-02-15
+155,The color is slightly different from the photo.,2026-01-20
+156,The color is slightly different from the photo.,2026-01-25
+157,Standard shipping was slow but product is great.,2026-03-02
+158,Good value for money.,2026-03-10
+159,Standard shipping was slow but product is great.,2026-02-19
+160,Exactly what I was looking for.,2026-03-16
+161,"Amazing quality, fits perfectly!",2026-03-01
+162,"Too small, need to return it.",2026-03-08
+163,Best purchase I've made this year!,2026-03-21
+164,Standard shipping was slow but product is great.,2026-02-03
+165,The color is slightly different from the photo.,2026-02-07
+166,Best purchase I've made this year!,2026-03-01
+167,The color is slightly different from the photo.,2026-01-18
+168,"Material feels cheap, wouldn't recommend.",2026-02-26
+169,"Material feels cheap, wouldn't recommend.",2026-01-18
+170,"Amazing quality, fits perfectly!",2026-01-23
+171,"Material feels cheap, wouldn't recommend.",2026-03-04
+172,"Amazing quality, fits perfectly!",2026-01-08
+173,Good value for money.,2026-02-07
+174,Very disappointed with the material.,2026-01-24
+175,"Too small, need to return it.",2026-01-20
+176,Standard shipping was slow but product is great.,2026-02-22
+177,"Too small, need to return it.",2026-01-31
+178,"Amazing quality, fits perfectly!",2026-03-06
+179,Exactly what I was looking for.,2026-02-24
+180,Exactly what I was looking for.,2026-01-21
+181,"Material feels cheap, wouldn't recommend.",2026-03-09
+182,Very disappointed with the material.,2026-03-17
+183,"Material feels cheap, wouldn't recommend.",2026-02-06
+184,Best purchase I've made this year!,2026-03-01
+185,Good value for money.,2026-02-16
+186,Very disappointed with the material.,2026-02-21
+187,The color is slightly different from the photo.,2026-03-05
+188,"Material feels cheap, wouldn't recommend.",2026-01-29
+189,"Material feels cheap, wouldn't recommend.",2026-02-20
+190,Very disappointed with the material.,2026-02-02
+191,Very disappointed with the material.,2026-02-14
+192,Best purchase I've made this year!,2026-03-08
+193,Exactly what I was looking for.,2026-02-13
+194,Very disappointed with the material.,2026-01-24
+195,"Amazing quality, fits perfectly!",2026-01-13
+196,Very disappointed with the material.,2026-01-02
+197,Excellent customer service and fast delivery.,2026-01-05
+198,"Amazing quality, fits perfectly!",2026-01-07
+199,Exactly what I was looking for.,2026-02-05
+200,"Amazing quality, fits perfectly!",2026-01-25
+201,Standard shipping was slow but product is great.,2026-03-16
+202,Good value for money.,2026-02-09
+203,Excellent customer service and fast delivery.,2026-01-28
+204,"Material feels cheap, wouldn't recommend.",2026-02-02
+205,The color is slightly different from the photo.,2026-02-22
+206,"Amazing quality, fits perfectly!",2026-01-28
+207,"Material feels cheap, wouldn't recommend.",2026-02-28
+208,"Material feels cheap, wouldn't recommend.",2026-01-26
+209,"Too small, need to return it.",2026-02-20
+210,Good value for money.,2026-02-27
+211,Very disappointed with the material.,2026-02-24
+212,Best purchase I've made this year!,2026-01-31
+213,Good value for money.,2026-01-13
+214,Very disappointed with the material.,2026-01-30
+215,Excellent customer service and fast delivery.,2026-01-30
+216,Very disappointed with the material.,2026-03-19
+217,Standard shipping was slow but product is great.,2026-02-25
+218,"Too small, need to return it.",2026-02-05
+219,Excellent customer service and fast delivery.,2026-01-16
+220,"Too small, need to return it.",2026-01-24
+221,"Too small, need to return it.",2026-01-07
+222,"Too small, need to return it.",2026-01-26
+223,Standard shipping was slow but product is great.,2026-03-02
+224,Very disappointed with the material.,2026-01-10
+225,Very disappointed with the material.,2026-01-05
+226,"Too small, need to return it.",2026-02-18
+227,Good value for money.,2026-03-20
+228,Exactly what I was looking for.,2026-03-05
+229,Best purchase I've made this year!,2026-03-20
+230,Excellent customer service and fast delivery.,2026-02-28
+231,Best purchase I've made this year!,2026-02-14
+232,Good value for money.,2026-03-20
+233,"Amazing quality, fits perfectly!",2026-02-27
+234,The color is slightly different from the photo.,2026-03-05
+235,Very disappointed with the material.,2026-01-24
+236,"Material feels cheap, wouldn't recommend.",2026-01-21
+237,Exactly what I was looking for.,2026-03-09
+238,"Amazing quality, fits perfectly!",2026-01-07
+239,Exactly what I was looking for.,2026-02-23
+240,Standard shipping was slow but product is great.,2026-03-15
+241,Very disappointed with the material.,2026-01-09
+242,Best purchase I've made this year!,2026-03-20
+243,Excellent customer service and fast delivery.,2026-02-14
+244,Excellent customer service and fast delivery.,2026-02-02
+245,Exactly what I was looking for.,2026-03-16
+246,"Material feels cheap, wouldn't recommend.",2026-01-10
+247,Good value for money.,2026-02-25
+248,Best purchase I've made this year!,2026-02-24
+249,Excellent customer service and fast delivery.,2026-01-27
+250,"Amazing quality, fits perfectly!",2026-01-03
+251,Very disappointed with the material.,2026-01-29
+252,Good value for money.,2026-03-15
+253,Best purchase I've made this year!,2026-01-13
+254,Good value for money.,2026-02-25
+255,Exactly what I was looking for.,2026-01-20
+256,"Amazing quality, fits perfectly!",2026-01-10
+257,Excellent customer service and fast delivery.,2026-03-21
+258,Standard shipping was slow but product is great.,2026-03-22
+259,Best purchase I've made this year!,2026-02-13
+260,"Amazing quality, fits perfectly!",2026-03-19
+261,Standard shipping was slow but product is great.,2026-02-10
+262,Best purchase I've made this year!,2026-02-17
+263,"Too small, need to return it.",2026-03-03
+264,"Amazing quality, fits perfectly!",2026-01-16
+265,Very disappointed with the material.,2026-01-22
+266,"Amazing quality, fits perfectly!",2026-01-13
+267,The color is slightly different from the photo.,2026-03-22
+268,"Material feels cheap, wouldn't recommend.",2026-01-10
+269,Standard shipping was slow but product is great.,2026-03-10
+270,Excellent customer service and fast delivery.,2026-01-16
+271,Very disappointed with the material.,2026-02-18
+272,"Amazing quality, fits perfectly!",2026-01-30
+273,"Too small, need to return it.",2026-02-09
+274,"Amazing quality, fits perfectly!",2026-03-12
+275,Very disappointed with the material.,2026-01-13
+276,"Material feels cheap, wouldn't recommend.",2026-01-18
+277,Exactly what I was looking for.,2026-01-14
+278,Standard shipping was slow but product is great.,2026-03-06
+279,Exactly what I was looking for.,2026-02-03
+280,"Material feels cheap, wouldn't recommend.",2026-02-02
+281,"Too small, need to return it.",2026-01-25
+282,The color is slightly different from the photo.,2026-03-06
+283,Best purchase I've made this year!,2026-03-04
+284,Excellent customer service and fast delivery.,2026-02-21
+285,Exactly what I was looking for.,2026-01-07
+286,"Too small, need to return it.",2026-01-05
+287,Very disappointed with the material.,2026-01-01
+288,Standard shipping was slow but product is great.,2026-03-20
+289,"Material feels cheap, wouldn't recommend.",2026-01-20
+290,Good value for money.,2026-01-14
+291,"Amazing quality, fits perfectly!",2026-02-26
+292,Good value for money.,2026-01-31
+293,Excellent customer service and fast delivery.,2026-03-21
+294,Excellent customer service and fast delivery.,2026-01-17
+295,Standard shipping was slow but product is great.,2026-03-08
+296,Good value for money.,2026-03-21
+297,"Too small, need to return it.",2026-01-29
+298,Exactly what I was looking for.,2026-02-27
+299,Exactly what I was looking for.,2026-03-17
+300,"Material feels cheap, wouldn't recommend.",2026-03-07
+301,"Material feels cheap, wouldn't recommend.",2026-02-21
+302,Very disappointed with the material.,2026-01-23
+303,Excellent customer service and fast delivery.,2026-02-01
+304,Standard shipping was slow but product is great.,2026-01-26
+305,Very disappointed with the material.,2026-01-27
+306,Exactly what I was looking for.,2026-02-25
+307,"Material feels cheap, wouldn't recommend.",2026-01-11
+308,Best purchase I've made this year!,2026-03-05
+309,The color is slightly different from the photo.,2026-01-09
+310,Very disappointed with the material.,2026-02-16
+311,Best purchase I've made this year!,2026-01-25
+312,Excellent customer service and fast delivery.,2026-03-07
+313,Standard shipping was slow but product is great.,2026-03-11
+314,Excellent customer service and fast delivery.,2026-02-28
+315,Exactly what I was looking for.,2026-03-10
+316,Excellent customer service and fast delivery.,2026-01-01
+317,Exactly what I was looking for.,2026-01-08
+318,"Amazing quality, fits perfectly!",2026-02-27
+319,"Too small, need to return it.",2026-01-24
+320,Exactly what I was looking for.,2026-01-21
+321,Standard shipping was slow but product is great.,2026-03-22
+322,"Too small, need to return it.",2026-02-11
+323,Exactly what I was looking for.,2026-02-09
+324,Very disappointed with the material.,2026-02-06
+325,Very disappointed with the material.,2026-03-13
+326,Excellent customer service and fast delivery.,2026-01-09
+327,Standard shipping was slow but product is great.,2026-02-16
+328,Standard shipping was slow but product is great.,2026-02-26
+329,"Amazing quality, fits perfectly!",2026-01-20
+330,Excellent customer service and fast delivery.,2026-02-19
+331,"Material feels cheap, wouldn't recommend.",2026-02-02
+332,The color is slightly different from the photo.,2026-02-06
+333,Best purchase I've made this year!,2026-02-14
+334,Very disappointed with the material.,2026-02-12
+335,"Amazing quality, fits perfectly!",2026-03-16
+336,Exactly what I was looking for.,2026-02-08
+337,Standard shipping was slow but product is great.,2026-01-09
+338,Standard shipping was slow but product is great.,2026-02-06
+339,Good value for money.,2026-02-28
+340,Excellent customer service and fast delivery.,2026-02-19
+341,Good value for money.,2026-02-23
+342,Standard shipping was slow but product is great.,2026-02-04
+343,Exactly what I was looking for.,2026-03-03
+344,Exactly what I was looking for.,2026-02-13
+345,The color is slightly different from the photo.,2026-01-23
+346,"Amazing quality, fits perfectly!",2026-03-06
+347,"Amazing quality, fits perfectly!",2026-01-17
+348,Very disappointed with the material.,2026-02-13
+349,"Material feels cheap, wouldn't recommend.",2026-02-21
+350,"Material feels cheap, wouldn't recommend.",2026-01-17
+351,"Material feels cheap, wouldn't recommend.",2026-01-26
+352,Best purchase I've made this year!,2026-02-25
+353,The color is slightly different from the photo.,2026-01-02
+354,Exactly what I was looking for.,2026-01-09
+355,"Amazing quality, fits perfectly!",2026-01-23
+356,Standard shipping was slow but product is great.,2026-03-06
+357,"Amazing quality, fits perfectly!",2026-01-28
+358,"Too small, need to return it.",2026-03-15
+359,Exactly what I was looking for.,2026-01-07
+360,Good value for money.,2026-02-14
+361,Good value for money.,2026-01-15
+362,Best purchase I've made this year!,2026-03-07
+363,Exactly what I was looking for.,2026-02-28
+364,Good value for money.,2026-01-06
+365,Good value for money.,2026-01-09
+366,Standard shipping was slow but product is great.,2026-02-16
+367,Standard shipping was slow but product is great.,2026-02-13
+368,"Too small, need to return it.",2026-01-17
+369,Best purchase I've made this year!,2026-01-01
+370,Standard shipping was slow but product is great.,2026-02-06
+371,Very disappointed with the material.,2026-01-14
+372,Excellent customer service and fast delivery.,2026-03-09
+373,"Material feels cheap, wouldn't recommend.",2026-03-15
+374,Excellent customer service and fast delivery.,2026-03-07
+375,Best purchase I've made this year!,2026-02-10
+376,Excellent customer service and fast delivery.,2026-03-11
+377,Excellent customer service and fast delivery.,2026-02-24
+378,Standard shipping was slow but product is great.,2026-03-17
+379,Exactly what I was looking for.,2026-03-04
+380,Best purchase I've made this year!,2026-01-04
+381,Exactly what I was looking for.,2026-01-03
+382,"Amazing quality, fits perfectly!",2026-02-07
+383,"Amazing quality, fits perfectly!",2026-01-04
+384,Good value for money.,2026-03-08
+385,The color is slightly different from the photo.,2026-01-22
+386,"Too small, need to return it.",2026-01-19
+387,Very disappointed with the material.,2026-01-28
+388,Very disappointed with the material.,2026-01-13
+389,Excellent customer service and fast delivery.,2026-03-10
+390,Best purchase I've made this year!,2026-02-19
+391,The color is slightly different from the photo.,2026-01-24
+392,Best purchase I've made this year!,2026-02-12
+393,Good value for money.,2026-03-15
+394,Excellent customer service and fast delivery.,2026-03-15
+395,Exactly what I was looking for.,2026-01-04
+396,Good value for money.,2026-02-20
+397,Exactly what I was looking for.,2026-03-06
+398,The color is slightly different from the photo.,2026-02-06
+399,Excellent customer service and fast delivery.,2026-01-23
+400,"Amazing quality, fits perfectly!",2026-01-27
+401,Best purchase I've made this year!,2026-01-06
+402,Best purchase I've made this year!,2026-02-03
+403,Very disappointed with the material.,2026-01-15
+404,The color is slightly different from the photo.,2026-02-26
+405,The color is slightly different from the photo.,2026-03-19
+406,"Material feels cheap, wouldn't recommend.",2026-03-11
+407,"Too small, need to return it.",2026-02-08
+408,Excellent customer service and fast delivery.,2026-01-08
+409,Excellent customer service and fast delivery.,2026-01-11
+410,Very disappointed with the material.,2026-01-26
+411,Good value for money.,2026-03-18
+412,"Too small, need to return it.",2026-03-07
+413,Good value for money.,2026-01-31
+414,Exactly what I was looking for.,2026-01-02
+415,Standard shipping was slow but product is great.,2026-02-11
+416,Very disappointed with the material.,2026-02-20
+417,Very disappointed with the material.,2026-03-13
+418,Good value for money.,2026-01-31
+419,Best purchase I've made this year!,2026-03-02
+420,"Amazing quality, fits perfectly!",2026-01-03
+421,The color is slightly different from the photo.,2026-02-04
+422,Standard shipping was slow but product is great.,2026-02-25
+423,Best purchase I've made this year!,2026-03-02
+424,Standard shipping was slow but product is great.,2026-03-16
+425,Best purchase I've made this year!,2026-02-19
+426,"Amazing quality, fits perfectly!",2026-03-18
+427,Very disappointed with the material.,2026-03-17
+428,Best purchase I've made this year!,2026-01-03
+429,"Amazing quality, fits perfectly!",2026-02-10
+430,Excellent customer service and fast delivery.,2026-01-12
+431,Very disappointed with the material.,2026-03-19
+432,Standard shipping was slow but product is great.,2026-01-21
+433,"Amazing quality, fits perfectly!",2026-02-25
+434,Very disappointed with the material.,2026-02-01
+435,Best purchase I've made this year!,2026-02-08
+436,Exactly what I was looking for.,2026-01-29
+437,Very disappointed with the material.,2026-02-19
+438,Good value for money.,2026-01-16
+439,"Material feels cheap, wouldn't recommend.",2026-03-02
+440,Good value for money.,2026-02-15
+441,Exactly what I was looking for.,2026-01-02
+442,Exactly what I was looking for.,2026-03-17
+443,Very disappointed with the material.,2026-02-11
+444,Good value for money.,2026-02-02
+445,Standard shipping was slow but product is great.,2026-03-05
+446,Best purchase I've made this year!,2026-01-02
+447,"Too small, need to return it.",2026-02-18
+448,Excellent customer service and fast delivery.,2026-02-11
+449,"Too small, need to return it.",2026-01-27
+450,Very disappointed with the material.,2026-01-06
+451,"Material feels cheap, wouldn't recommend.",2026-03-03
+452,Standard shipping was slow but product is great.,2026-02-22
+453,Exactly what I was looking for.,2026-02-04
+454,"Material feels cheap, wouldn't recommend.",2026-01-12
+455,The color is slightly different from the photo.,2026-01-12
+456,"Too small, need to return it.",2026-03-21
+457,Standard shipping was slow but product is great.,2026-01-02
+458,"Too small, need to return it.",2026-01-15
+459,The color is slightly different from the photo.,2026-02-15
+460,The color is slightly different from the photo.,2026-02-06
+461,Standard shipping was slow but product is great.,2026-01-23
+462,Best purchase I've made this year!,2026-01-25
+463,The color is slightly different from the photo.,2026-01-19
+464,Best purchase I've made this year!,2026-02-16
+465,Excellent customer service and fast delivery.,2026-01-26
+466,The color is slightly different from the photo.,2026-03-12
+467,Excellent customer service and fast delivery.,2026-01-09
+468,Best purchase I've made this year!,2026-02-23
+469,"Material feels cheap, wouldn't recommend.",2026-01-27
+470,"Amazing quality, fits perfectly!",2026-01-25
+471,Standard shipping was slow but product is great.,2026-03-05
+472,Good value for money.,2026-01-28
+473,Very disappointed with the material.,2026-03-10
+474,Very disappointed with the material.,2026-01-10
+475,Standard shipping was slow but product is great.,2026-02-11
+476,Excellent customer service and fast delivery.,2026-01-13
+477,"Too small, need to return it.",2026-03-17
+478,Best purchase I've made this year!,2026-03-17
+479,Excellent customer service and fast delivery.,2026-02-02
+480,Excellent customer service and fast delivery.,2026-01-19
+481,Best purchase I've made this year!,2026-02-05
+482,"Amazing quality, fits perfectly!",2026-01-31
+483,"Material feels cheap, wouldn't recommend.",2026-02-23
+484,The color is slightly different from the photo.,2026-01-10
+485,Good value for money.,2026-01-03
+486,Standard shipping was slow but product is great.,2026-01-26
+487,Exactly what I was looking for.,2026-03-09
+488,Very disappointed with the material.,2026-02-15
+489,Best purchase I've made this year!,2026-01-13
+490,"Amazing quality, fits perfectly!",2026-03-10
+491,The color is slightly different from the photo.,2026-01-31
+492,"Amazing quality, fits perfectly!",2026-03-13
+493,Best purchase I've made this year!,2026-02-11
+494,Excellent customer service and fast delivery.,2026-01-01
+495,Good value for money.,2026-02-01
+496,"Material feels cheap, wouldn't recommend.",2026-02-04
+497,Exactly what I was looking for.,2026-02-10
+498,"Amazing quality, fits perfectly!",2026-01-29
+499,Very disappointed with the material.,2026-01-29
+500,Excellent customer service and fast delivery.,2026-01-02
