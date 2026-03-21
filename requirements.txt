@@ -1,0 +1,11 @@
+Django
+djangorestframework
+mlflow
+scikit-learn
+xgboost
+pandas
+numpy
+matplotlib
+seaborn
+ipykernel
+jupyter

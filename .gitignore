@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Django
+db.sqlite3
+/static/
+/media/
+
+# MLflow
+mlruns/
+
+# IDEs
+.vscode/
+.idea/
+
+# Data and Models (Optional, but often good to ignore large binaries if they are auto-generated)
+/data/*.csv
+!/data/customer_shopping_behavior.csv
+*.pkl
+*.model
+
+# Power BI temp files
+*.pbix.temp
