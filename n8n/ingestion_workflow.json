@@ -1,0 +1,135 @@
+{
+  "name": "Finance RAG — Ingestion Pipeline",
+  "nodes": [
+    {
+      "id": "ingestion-001",
+      "name": "Run Ingestion",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {}
+    },
+    {
+      "id": "ingestion-002",
+      "name": "Finance Policy KB",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [440, 300],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "field-policy-text",
+              "name": "policyText",
+              "type": "string",
+              "value": "EXPENSE REIMBURSEMENT POLICY\n\n1. Employee expense reimbursement limits (without prior approval): INR 5,000 per month for junior staff; INR 15,000 for senior staff; INR 30,000 for managers.\n2. Any expense exceeding the above limits requires written pre-approval from the direct manager and a Finance department counter-sign before the expense is incurred.\n3. Receipts are mandatory for all individual claims above INR 500. Digital receipts (PDF, screenshot) are accepted.\n4. Meal expenses: INR 300 per meal, maximum 3 meals per day during approved business travel.\n5. Reimbursement processing time: 7 working days from complete and verified document submission.\n6. Expense claims must be submitted within 30 days of the expense being incurred. Late claims will not be reimbursed without CFO exception approval.\n\nGST AND INPUT TAX CREDIT POLICY\n\n1. Input Tax Credit (ITC) can be claimed on all business-related purchases supported by a valid GST-compliant invoice.\n2. ITC is NOT available on: personal expenses, food and beverages consumed at restaurants, club memberships, health and fitness expenses, motor vehicles used for personal purposes, and works contract services for immovable property.\n3. GST reconciliation with GSTR-2B must be completed by the 20th of each calendar month. Any discrepancy must be flagged to the Finance Head within 3 days.\n4. All vendor invoices must contain: vendor GSTIN, invoice date, invoice number, HSN/SAC code, taxable value, CGST/SGST/IGST amounts, and total value. Invoices missing any of these fields will be rejected.\n5. Reverse Charge Mechanism (RCM) applies for services received from unregistered vendors where the single transaction value exceeds INR 5,000. Finance must account for and pay this GST directly to the government.\n6. ITC claims must be filed within the time limit prescribed under GST law (currently by the 30th November of the following financial year or the date of filing annual return, whichever is earlier).\n\nBUDGET APPROVAL THRESHOLDS\n\n1. Department Heads can approve purchases up to INR 1,00,000 without CFO involvement.\n2. Purchases between INR 1,00,001 and INR 5,00,000 require digital approval from the CFO.\n3. Any purchase, commitment, or financial liability above INR 5,00,000 requires a Board resolution or delegated Board approval.\n4. Emergency purchases bypassing the normal approval chain require dual authorization from any two company signatories and must be formally ratified at the next Finance Committee meeting.\n5. All Capital Expenditure (CapEx) requests must include: business justification, projected ROI calculation with payback period, 3-year depreciation schedule, and minimum 3 competitive vendor quotes.\n6. Budget reallocation between departments requires Finance Head approval and must be documented in the ERP system.\n\nTRAVEL ALLOWANCE AND PER DIEM POLICY\n\n1. Domestic air travel: Economy class for all employees. Business class is permitted only when the total flight duration (including connections) exceeds 4 hours, or for employees above VP level.\n2. Hotel accommodation limits: INR 5,000 per night in metro cities (Mumbai, Delhi NCR, Bangalore, Chennai, Hyderabad, Kolkata, Pune); INR 3,500 per night in Tier-2 cities; INR 2,500 per night in all other locations.\n3. Local conveyance: Actual costs via approved cab aggregators (Ola Business or Uber for Business) up to INR 1,500 per travel day. Auto-rickshaw and public transport receipts are reimbursable at actuals.\n4. Daily per diem for domestic overnight travel: INR 1,000 per day covering all meal expenses combined. No separate meal bills are required when claiming per diem.\n5. International travel requires written approval from both the HR Head and CFO at minimum 14 calendar days in advance of travel. Visa and forex are arranged by the company through the designated travel desk.\n6. Travel advance: Employees may request up to 80% of estimated travel cost before the trip. Settlement with original receipts is mandatory within 5 working days of return. Failure to settle will result in deduction from the next salary.\n\nINVOICE PROCESSING AND VENDOR PAYMENT SLA\n\n1. Standard invoices: Processed and payment initiated within 15 working days of receipt in the Finance inbox, assuming all documentation is complete and the 3-way match is clear.\n2. Priority invoices (formally marked 'URGENT' by Department Head via email to Finance): Processed within 5 working days.\n3. All invoices above INR 5,00,000 require a mandatory 3-way match — Purchase Order (PO), Goods Receipt Note (GRN), and Tax Invoice — before any payment can be released.\n4. Standard vendor payment terms: Net 30 days from invoice date. New vendors (within first 6 months of onboarding): Net 45 days. Strategic vendors may negotiate different terms subject to CFO approval.\n5. Late payment escalation: Finance must flag to the CFO any invoice that remains unpaid beyond 60 days, along with the reason for delay.\n6. Invoice disputes: Finance must notify the vendor in writing within 3 working days of identifying a dispute. Resolution must be achieved within 10 working days. Disputed amount must be placed in a suspense account pending resolution.\n\nADVANCE PAYMENT POLICY\n\n1. Employee personal advances: Maximum INR 50,000 per employee. Repayable within 3 months, or recoverable via monthly salary deduction with employee's written consent.\n2. Vendor advance payments: Permitted up to a maximum of 30% of the Purchase Order value, subject to written approval from the Finance Head. Advances above 30% require CFO sign-off.\n3. An employee cannot request a new advance if any existing advance is outstanding and not fully settled.\n4. Salary advances: Maximum 1 month's gross CTC. Allowed a maximum of twice per financial year (April–March). Requires HR Head approval and Finance counter-signature.\n5. Advances to contractors or consultants are not permitted under any circumstances without Board approval."
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "ingestion-003",
+      "name": "Split Into Chunks",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Split finance policy text into overlapping chunks for better RAG retrieval\nconst text = $input.item.json.policyText;\nconst CHUNK_WORDS = 200;  // words per chunk\nconst OVERLAP_WORDS = 30; // overlap between chunks to preserve context\n\nconst words = text.split(/\\s+/).filter(w => w.length > 0);\nconst chunks = [];\nconst step = CHUNK_WORDS - OVERLAP_WORDS;\n\nfor (let i = 0; i < words.length; i += step) {\n  const slice = words.slice(i, i + CHUNK_WORDS);\n  if (slice.length < 15) break; // skip tiny trailing fragments\n\n  const chunkIndex = Math.floor(i / step);\n  chunks.push({\n    json: {\n      chunkId: `finance-policy-chunk-${chunkIndex}`,\n      chunkText: slice.join(' '),\n      chunkIndex\n    }\n  });\n}\n\nconsole.log(`Created ${chunks.length} chunks from policy text`);\nreturn chunks;"
+      }
+    },
+    {
+      "id": "ingestion-004",
+      "name": "Gemini Embed Chunk",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [840, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "YOUR_GEMINI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'models/text-embedding-004', content: { parts: [{ text: $json.chunkText }] } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ingestion-005",
+      "name": "Upsert to Pinecone",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1040, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_PINECONE_INDEX_HOST/vectors/upsert",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Api-Key",
+              "value": "YOUR_PINECONE_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ vectors: [{ id: $('Split Into Chunks').item.json.chunkId, values: $json.embedding.values, metadata: { text: $('Split Into Chunks').item.json.chunkText, source: 'finance-policy-kb', chunkIndex: $('Split Into Chunks').item.json.chunkIndex } }], namespace: 'finance-kb' }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Run Ingestion": {
+      "main": [
+        [{ "node": "Finance Policy KB", "type": "main", "index": 0 }]
+      ]
+    },
+    "Finance Policy KB": {
+      "main": [
+        [{ "node": "Split Into Chunks", "type": "main", "index": 0 }]
+      ]
+    },
+    "Split Into Chunks": {
+      "main": [
+        [{ "node": "Gemini Embed Chunk", "type": "main", "index": 0 }]
+      ]
+    },
+    "Gemini Embed Chunk": {
+      "main": [
+        [{ "node": "Upsert to Pinecone", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

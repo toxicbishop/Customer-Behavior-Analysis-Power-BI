@@ -1,0 +1,328 @@
+{
+  "name": "Finance RAG — Retrieval Agent",
+  "nodes": [
+    {
+      "id": "retrieval-001",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "id": "retrieval-002",
+      "name": "Embed Question",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [440, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "YOUR_GEMINI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'models/text-embedding-004', content: { parts: [{ text: $('Telegram Trigger').item.json.message.text }] } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "retrieval-003",
+      "name": "Query Pinecone",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [640, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://YOUR_PINECONE_INDEX_HOST/query",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Api-Key",
+              "value": "YOUR_PINECONE_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ vector: $json.embedding.values, topK: 3, includeMetadata: true, namespace: 'finance-kb' }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "retrieval-004",
+      "name": "Build RAG Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [840, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Pull Pinecone matches\nconst matches = $input.item.json.matches || [];\n\n// Build context from retrieved chunks\nconst context = matches.length > 0\n  ? matches.map((m, i) => `[Source ${i + 1}]\\n${m.metadata?.text || ''}\\n`).join('\\n')\n  : 'No relevant policy sections found in the knowledge base.';\n\n// Get original question and user info from Telegram trigger\nconst telegramMsg = $('Telegram Trigger').item.json.message;\nconst questionText = telegramMsg.text;\nconst username = telegramMsg.from?.username\n  ? `@${telegramMsg.from.username}`\n  : (telegramMsg.from?.first_name || 'Unknown User');\nconst chatId = telegramMsg.chat.id;\n\nconst prompt = `You are a Finance Policy Assistant for a company. Your job is to answer employee questions accurately using ONLY the company's finance policy documentation provided below.\n\nRULES:\n- Answer using only the context provided. Do not use outside knowledge.\n- If the answer is not in the context, respond with exactly: \"I don't know. This query isn't covered in the finance policy documentation — I'm escalating it to the finance team.\"\n- Keep answers concise, clear, and professional.\n- If there are specific numbers (limits, thresholds, days), state them explicitly.\n\nFINANCE POLICY CONTEXT:\n${context}\n\nEMPLOYEE QUESTION: ${questionText}\n\nANSWER:`;\n\nreturn [{\n  json: {\n    prompt,\n    questionText,\n    username,\n    chatId\n  }\n}];"
+      }
+    },
+    {
+      "id": "retrieval-005",
+      "name": "Generate Answer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1040, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "YOUR_GEMINI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contents: [{ parts: [{ text: $json.prompt }] }], generationConfig: { temperature: 0.2, maxOutputTokens: 512 } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "retrieval-006",
+      "name": "Extract Answer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1240, 300],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Extract answer text from Gemini response\nconst candidates = $input.item.json.candidates || [];\nconst answerText = candidates[0]?.content?.parts?.[0]?.text\n  || \"I don't know. I couldn't retrieve an answer — escalating to the finance team.\";\n\n// Detect low-confidence or out-of-scope answers\nconst uncertaintyPhrases = [\n  \"i don't know\",\n  \"i do not know\",\n  \"not covered\",\n  \"not in the context\",\n  \"not found in\",\n  \"i'm escalating\",\n  \"escalating it to\",\n  \"cannot answer\",\n  \"no information\",\n  \"not available in\"\n];\nconst lower = answerText.toLowerCase();\nconst isUncertain = uncertaintyPhrases.some(phrase => lower.includes(phrase));\n\n// Pull context from upstream nodes\nconst buildPromptData = $('Build RAG Prompt').item.json;\n\nreturn [{\n  json: {\n    answerText: answerText.trim(),\n    isUncertain,\n    questionText: buildPromptData.questionText,\n    username: buildPromptData.username,\n    chatId: buildPromptData.chatId,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      }
+    },
+    {
+      "id": "retrieval-007",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [1440, 300],
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Audit Log",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $json.timestamp }}",
+            "Username": "={{ $json.username }}",
+            "Question": "={{ $json.questionText }}",
+            "Answer": "={{ $json.answerText }}",
+            "Escalated": "={{ $json.isUncertain ? 'YES' : 'NO' }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            { "id": "Timestamp", "displayName": "Timestamp", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "Username", "displayName": "Username", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "Question", "displayName": "Question", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "Answer", "displayName": "Answer", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false },
+            { "id": "Escalated", "displayName": "Escalated", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": false }
+          ]
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_SHEETS_CREDENTIAL_ID",
+          "name": "Google Sheets"
+        }
+      }
+    },
+    {
+      "id": "retrieval-008",
+      "name": "Is Answer Uncertain?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1640, 300],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "condition-uncertain",
+              "leftValue": "={{ $json.isUncertain }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "retrieval-009",
+      "name": "Gmail Escalation Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1840, 200],
+      "parameters": {
+        "operation": "send",
+        "toList": "YOUR_FINANCE_TEAM_EMAIL@company.com",
+        "subject": "={{ '⚠️ Unresolved Finance Query from ' + $json.username }}",
+        "message": "={{ '<p><strong>Finance Policy Bot — Escalation Alert</strong></p><p>A query came in via Telegram that the bot could not confidently answer from the knowledge base.</p><p><strong>User:</strong> ' + $json.username + '</p><p><strong>Question:</strong> ' + $json.questionText + '</p><p><strong>Bot Response:</strong> ' + $json.answerText + '</p><p><strong>Time:</strong> ' + $json.timestamp + '</p><p>Please respond to this employee directly.</p>' }}",
+        "options": {
+          "isHtml": true
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail"
+        }
+      }
+    },
+    {
+      "id": "retrieval-010",
+      "name": "Telegram Reply — Escalated",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [2040, 200],
+      "parameters": {
+        "operation": "sendMessage",
+        "chatId": "={{ $('Extract Answer').item.json.chatId }}",
+        "text": "={{ '⚠️ ' + $('Extract Answer').item.json.answerText + '\\n\\n_You will hear back from the finance team shortly._' }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot"
+        }
+      }
+    },
+    {
+      "id": "retrieval-011",
+      "name": "Telegram Reply — Answer",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1840, 420],
+      "parameters": {
+        "operation": "sendMessage",
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ '📋 *Finance Policy Answer*\\n\\n' + $json.answerText }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [{ "node": "Embed Question", "type": "main", "index": 0 }]
+      ]
+    },
+    "Embed Question": {
+      "main": [
+        [{ "node": "Query Pinecone", "type": "main", "index": 0 }]
+      ]
+    },
+    "Query Pinecone": {
+      "main": [
+        [{ "node": "Build RAG Prompt", "type": "main", "index": 0 }]
+      ]
+    },
+    "Build RAG Prompt": {
+      "main": [
+        [{ "node": "Generate Answer", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Answer": {
+      "main": [
+        [{ "node": "Extract Answer", "type": "main", "index": 0 }]
+      ]
+    },
+    "Extract Answer": {
+      "main": [
+        [{ "node": "Log to Google Sheets", "type": "main", "index": 0 }]
+      ]
+    },
+    "Log to Google Sheets": {
+      "main": [
+        [{ "node": "Is Answer Uncertain?", "type": "main", "index": 0 }]
+      ]
+    },
+    "Is Answer Uncertain?": {
+      "main": [
+        [{ "node": "Gmail Escalation Alert", "type": "main", "index": 0 }],
+        [{ "node": "Telegram Reply — Answer", "type": "main", "index": 0 }]
+      ]
+    },
+    "Gmail Escalation Alert": {
+      "main": [
+        [{ "node": "Telegram Reply — Escalated", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
