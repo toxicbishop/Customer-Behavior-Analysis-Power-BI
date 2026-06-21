@@ -25,4 +25,5 @@ jobs:
         pip install -r requirements.txt
     - name: Run Django Tests
       run: |
-        python api/manage.py test api/ml_models/
+        cd api
+        python manage.py test ml_models
