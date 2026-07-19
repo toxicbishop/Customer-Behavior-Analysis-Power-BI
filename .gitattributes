@@ -3,4 +3,4 @@
 *.pbit linguist-language=PowerBuilder linguist-detectable=true
 
 # Force GitHub to recognize SQL files
-*.sql linguist-detectable=true
+*.sql linguist-language=SQL linguist-detectable=true
