@@ -2,7 +2,10 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
-![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-orange.svg)
+![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?style=flat&logo=Jupyter&logoColor=white)
+![MLflow](https://img.shields.io/badge/MLflow-0194E2.svg?style=flat&logo=MLflow&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=flat&logo=Power-BI&logoColor=black)
 ![Build Status](https://github.com/toxicbishop/Customer-Behavior-Analysis-Power-BI/actions/workflows/python-test.yml/badge.svg)
 
 This project demonstrates a complete end-to-end data analytics and machine learning workflow. It includes data processing, exploratory analysis, relational SQL querying, star schema modeling, and a Django REST API for serving ML models.
