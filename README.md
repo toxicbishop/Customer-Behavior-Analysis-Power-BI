@@ -1,7 +1,7 @@
 # Customer Behavior Analysis & API
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Python 3.12.x](https://img.shields.io/badge/python-3.12.x-blue.svg)
 ![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626.svg?style=flat&logo=Jupyter&logoColor=white)
 ![MLflow](https://img.shields.io/badge/MLflow-0194E2.svg?style=flat&logo=MLflow&logoColor=white)
