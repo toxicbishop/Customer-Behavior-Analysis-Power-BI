@@ -88,8 +88,8 @@ Serve predictions via Django REST Framework.
 1. **Clone the Repository**
 
    ```bash
-   git clone <repo_url>
-   cd customer_behavior_analysis
+   git clone https://github.com/toxicbishop/Customer-Behavior-Analysis-Power-BI.git
+   cd Customer-Behavior-Analysis-Power-BI
    ```
 
 2. **Environment Setup**

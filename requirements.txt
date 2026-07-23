@@ -5,7 +5,10 @@ scikit-learn==1.7.2
 xgboost==3.2.0
 pandas==2.3.3
 numpy==2.2.6
-matplotlib
-seaborn
+matplotlib==3.10.3
+seaborn==0.13.2
 ipykernel
 jupyter
+joblib==1.5.1
+pytest==8.4.1
+python-dotenv==1.1.1
