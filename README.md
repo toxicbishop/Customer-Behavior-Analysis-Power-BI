@@ -10,6 +10,11 @@
 
 This project demonstrates a complete end-to-end data analytics and machine learning workflow. It includes data processing, exploratory analysis, relational SQL querying, star schema modeling, a churn-prediction ML pipeline, and a Django REST API for serving predictions.
 
+## System Architecture
+
+![System Architecture](ml/artifacts/Customer-Behavior-Analysis-Power-BI-System%20Architecture.png)
+*This architecture diagram outlines the end-to-end pipeline from data extraction to predictive modeling and dashboard visualization.* (Note: the editable Excalidraw file is located at `ml/artifacts/Customer-Behavior-Analysis-Power-BI— System Architecture.excalidraw`).
+
 ## Project Structure
 
 ```text
