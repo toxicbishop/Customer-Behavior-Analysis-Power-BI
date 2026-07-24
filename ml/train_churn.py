@@ -14,37 +14,39 @@ Dataset: customer_shopping_behavior.csv
   We engineer it from behavioral signals (see engineer_churn_label).
 """
 
-import pandas as pd
-import numpy as np
-import mlflow
-import mlflow.sklearn
-import matplotlib.pyplot as plt
-import seaborn as sns
+import os
+import warnings
 
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import (
+import joblib # type: ignore
+import matplotlib.pyplot as plt # type: ignore
+import mlflow # type: ignore
+import mlflow.sklearn # pyright: ignore[reportMissingImports]
+import numpy as np # pyright: ignore[reportMissingImports]
+import pandas as pd # pyright: ignore[reportMissingModuleSource]
+import seaborn as sns # pyright: ignore[reportMissingModuleSource]
+from sklearn.compose import ColumnTransformer # pyright: ignore[reportMissingModuleSource]
+from sklearn.ensemble import RandomForestClassifier # pyright: ignore[reportMissingModuleSource]
+from sklearn.metrics import ( # pyright: ignore[reportMissingModuleSource]
+    ConfusionMatrixDisplay,
     classification_report,
     confusion_matrix,
     roc_auc_score,
     roc_curve,
-    ConfusionMatrixDisplay,
 )
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-import joblib
-import os
-import warnings
+from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split # pyright: ignore[reportMissingModuleSource]
+from sklearn.pipeline import Pipeline # pyright: ignore[reportMissingModuleSource]
+from sklearn.preprocessing import OneHotEncoder, StandardScaler # pyright: ignore[reportMissingModuleSource]
 
 warnings.filterwarnings("ignore")
 
-# ─── Config ──────────────────────────────────────────────────────────────────
-DATA_PATH = "data/customer_shopping_behavior.csv"
-MODEL_OUTPUT_PATH = "models/churn_rf_model.pkl"
+# ─── Config ───────────────────────────────────────────────────────────────────
+BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH       = os.path.join(BASE_DIR, "data", "raw", "customer-shopping-behavior.csv")
+MODEL_OUTPUT_PATH = os.path.join(BASE_DIR, "ml", "models", "churn_rf_model.pkl")
+ARTIFACTS_DIR   = os.path.join(BASE_DIR, "ml", "artifacts")
 MLFLOW_EXPERIMENT = "churn_prediction"
-RANDOM_STATE = 42
+RANDOM_STATE    = 42
+
 
 # ─── 1. Load Data ─────────────────────────────────────────────────────────────
 def load_data(path: str) -> pd.DataFrame:
@@ -67,12 +69,12 @@ def engineer_churn_label(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     freq_map = {
-        "Weekly": 0,
-        "Fortnightly": 0,
-        "Monthly": 0,
-        "Bi-Weekly": 0,
-        "Quarterly": 1,
-        "Annually": 1,
+        "Weekly":         0,
+        "Fortnightly":    0,
+        "Monthly":        0,
+        "Bi-Weekly":      0,
+        "Quarterly":      1,
+        "Annually":       1,
         "Every 3 Months": 1,
     }
     df["low_freq"] = df["Frequency of Purchases"].map(freq_map).fillna(0).astype(int)
@@ -114,7 +116,6 @@ NUMERICAL_COLS = [
     "Previous Purchases",
 ]
 
-# Columns to drop before training
 DROP_COLS = [
     "Customer ID",
     "Item Purchased",
@@ -133,7 +134,6 @@ def preprocess(df: pd.DataFrame):
     X = df.drop(columns=["Churn"])
     y = df["Churn"]
 
-    # Final column lists (only keep what's actually in the dataframe)
     num_cols = [c for c in NUMERICAL_COLS if c in X.columns]
     cat_cols = [c for c in CATEGORICAL_COLS if c in X.columns]
 
@@ -159,7 +159,7 @@ def build_pipeline(preprocessor) -> Pipeline:
         max_depth=10,
         min_samples_split=5,
         min_samples_leaf=2,
-        class_weight="balanced",   # important: handles class imbalance automatically
+        class_weight="balanced",
         random_state=RANDOM_STATE,
         n_jobs=-1,
     )
@@ -167,11 +167,11 @@ def build_pipeline(preprocessor) -> Pipeline:
 
 
 # ─── 5. Evaluate ──────────────────────────────────────────────────────────────
-def evaluate(pipeline, X_test, y_test) -> dict:
+def evaluate(pipeline, X_test, y_test):
     y_pred = pipeline.predict(X_test)
     y_prob = pipeline.predict_proba(X_test)[:, 1]
 
-    report = classification_report(y_test, y_pred, output_dict=True)
+    report  = classification_report(y_test, y_pred, output_dict=True)
     roc_auc = roc_auc_score(y_test, y_prob)
 
     print("\n[eval] Classification Report:")
@@ -179,27 +179,27 @@ def evaluate(pipeline, X_test, y_test) -> dict:
     print(f"[eval] ROC-AUC: {roc_auc:.4f}")
 
     metrics = {
-        "accuracy": report["accuracy"],
-        "precision_churn": report["1"]["precision"],
-        "recall_churn": report["1"]["recall"],
-        "f1_churn": report["1"]["f1-score"],
-        "roc_auc": roc_auc,
+        "accuracy":        report["accuracy"], # pyright: ignore[reportArgumentType]
+        "precision_churn": report["1"]["precision"], # type: ignore
+        "recall_churn":    report["1"]["recall"], # type: ignore
+        "f1_churn":        report["1"]["f1-score"], # type: ignore
+        "roc_auc":         roc_auc,
     }
     return metrics, y_pred, y_prob
 
 
-# ─── 6. Plot & Save Artifacts ─────────────────────────────────────────────────
+# ─── 6. Save Artifacts ────────────────────────────────────────────────────────
 def save_artifacts(pipeline, X_test, y_test, y_pred, y_prob):
-    os.makedirs("artifacts", exist_ok=True)
+    os.makedirs(ARTIFACTS_DIR, exist_ok=True)
 
     # Confusion matrix
     fig, ax = plt.subplots(figsize=(6, 5))
-    cm = confusion_matrix(y_test, y_pred)
+    cm   = confusion_matrix(y_test, y_pred)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Retained", "Churned"])
     disp.plot(ax=ax, cmap="Blues", colorbar=False)
     ax.set_title("Confusion Matrix — Churn Prediction")
     plt.tight_layout()
-    plt.savefig("artifacts/confusion_matrix.png", dpi=150)
+    plt.savefig(os.path.join(ARTIFACTS_DIR, "confusion_matrix.png"), dpi=150)
     plt.close()
 
     # ROC curve
@@ -213,22 +213,19 @@ def save_artifacts(pipeline, X_test, y_test, y_pred, y_prob):
     ax.set_title("ROC Curve — Churn Prediction")
     ax.legend()
     plt.tight_layout()
-    plt.savefig("artifacts/roc_curve.png", dpi=150)
+    plt.savefig(os.path.join(ARTIFACTS_DIR, "roc_curve.png"), dpi=150)
     plt.close()
 
     # Feature importance (top 20)
-    rf_model = pipeline.named_steps["classifier"]
+    rf_model    = pipeline.named_steps["classifier"]
     preprocessor = pipeline.named_steps["preprocessor"]
-
-    # Reconstruct feature names after one-hot encoding
     num_features = preprocessor.transformers_[0][2]
-    ohe = preprocessor.transformers_[1][1]
+    ohe          = preprocessor.transformers_[1][1]
     cat_features = ohe.get_feature_names_out(preprocessor.transformers_[1][2]).tolist()
     all_features = list(num_features) + cat_features
 
-    importances = rf_model.feature_importances_
     feat_df = (
-        pd.DataFrame({"feature": all_features, "importance": importances})
+        pd.DataFrame({"feature": all_features, "importance": rf_model.feature_importances_})
         .sort_values("importance", ascending=False)
         .head(20)
     )
@@ -238,10 +235,10 @@ def save_artifacts(pipeline, X_test, y_test, y_pred, y_prob):
     ax.set_title("Top 20 Feature Importances — Random Forest")
     ax.set_xlabel("Importance")
     plt.tight_layout()
-    plt.savefig("artifacts/feature_importance.png", dpi=150)
+    plt.savefig(os.path.join(ARTIFACTS_DIR, "feature_importance.png"), dpi=150)
     plt.close()
 
-    print("[artifacts] Saved: confusion_matrix.png, roc_curve.png, feature_importance.png")
+    print(f"[artifacts] Saved to {ARTIFACTS_DIR}")
     return feat_df
 
 
@@ -254,7 +251,6 @@ def train_with_mlflow():
     X_train, X_test, y_train, y_test, preprocessor = preprocess(df)
     pipeline = build_pipeline(preprocessor)
 
-    # Cross-validation before final fit
     print("\n[cv]  Running 5-fold cross-validation...")
     cv_scores = cross_val_score(
         pipeline, X_train, y_train,
@@ -265,38 +261,32 @@ def train_with_mlflow():
     print(f"[cv]  CV ROC-AUC: {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
 
     with mlflow.start_run(run_name="churn_random_forest"):
-        # Log hyperparameters
         rf_params = pipeline.named_steps["classifier"].get_params()
         mlflow.log_params({
-            "n_estimators": rf_params["n_estimators"],
-            "max_depth": rf_params["max_depth"],
-            "min_samples_split": rf_params["min_samples_split"],
-            "min_samples_leaf": rf_params["min_samples_leaf"],
-            "class_weight": str(rf_params["class_weight"]),
-            "churn_label_strategy": "2_of_3_signals",
-            "test_size": 0.2,
+            "n_estimators":          rf_params["n_estimators"],
+            "max_depth":             rf_params["max_depth"],
+            "min_samples_split":     rf_params["min_samples_split"],
+            "min_samples_leaf":      rf_params["min_samples_leaf"],
+            "class_weight":          str(rf_params["class_weight"]),
+            "churn_label_strategy":  "2_of_3_signals",
+            "test_size":             0.2,
         })
 
-        # Fit on full training set
         pipeline.fit(X_train, y_train)
 
-        # Evaluate
         metrics, y_pred, y_prob = evaluate(pipeline, X_test, y_test)
 
-        # Log metrics
         mlflow.log_metrics({
             **metrics,
             "cv_roc_auc_mean": cv_scores.mean(),
-            "cv_roc_auc_std": cv_scores.std(),
+            "cv_roc_auc_std":  cv_scores.std(),
         })
 
-        # Save and log artifacts
         feat_df = save_artifacts(pipeline, X_test, y_test, y_pred, y_prob)
-        mlflow.log_artifact("artifacts/confusion_matrix.png")
-        mlflow.log_artifact("artifacts/roc_curve.png")
-        mlflow.log_artifact("artifacts/feature_importance.png")
+        mlflow.log_artifact(os.path.join(ARTIFACTS_DIR, "confusion_matrix.png"))
+        mlflow.log_artifact(os.path.join(ARTIFACTS_DIR, "roc_curve.png"))
+        mlflow.log_artifact(os.path.join(ARTIFACTS_DIR, "feature_importance.png"))
 
-        # Log model to MLflow registry
         mlflow.sklearn.log_model(
             pipeline,
             artifact_path="churn_model",
@@ -304,10 +294,9 @@ def train_with_mlflow():
             input_example=X_test.iloc[:5],
         )
 
-        # Save local copy for FastAPI
-        os.makedirs("models", exist_ok=True)
+        os.makedirs(os.path.dirname(MODEL_OUTPUT_PATH), exist_ok=True)
         joblib.dump(pipeline, MODEL_OUTPUT_PATH)
-        print(f"\n[mlflow] Model saved locally: {MODEL_OUTPUT_PATH}")
+        print(f"\n[mlflow] Model saved: {MODEL_OUTPUT_PATH}")
         print(f"[mlflow] Run ID: {mlflow.active_run().info.run_id}")
 
     return pipeline, feat_df

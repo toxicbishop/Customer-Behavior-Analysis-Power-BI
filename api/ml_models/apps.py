@@ -1,16 +1,13 @@
-import joblib
 import os
-from django.apps import AppConfig
+import logging
+import joblib # pyright: ignore[reportMissingImports]
+from django.apps import AppConfig # pyright: ignore[reportMissingModuleSource]
+from django.conf import settings # pyright: ignore[reportMissingModuleSource]
 
 # Module-level registry — loaded once, shared across all requests
 MODELS = {}
 
-MODEL_PATHS = {
-    "churn":    "ml/models/churn_rf_model.pkl",
-    "segment":  "ml/models/segmentation_model.pkl",
-    "purchase": "ml/models/purchase_model.pkl",
-    "recommend":"ml/models/recommender_model.pkl",
-}
+logger = logging.getLogger(__name__)
 
 
 class MlModelsConfig(AppConfig):
@@ -20,13 +17,22 @@ class MlModelsConfig(AppConfig):
     def ready(self):
         """
         Called once when Django starts. Loads every available model into the
-        MODELS dict. Missing models log a warning instead of crashing the
-        server — endpoints handle the None case gracefully.
+        MODELS dict. Paths are resolved relative to the project root (one
+        level above settings.BASE_DIR's manage.py, i.e. api/../ml/models),
+        NOT relative to whatever directory the server was launched from.
         """
-        import logging
-        logger = logging.getLogger(__name__)
+        # settings.BASE_DIR is the 'api/' folder (where manage.py lives).
+        # The 'ml/' folder sits one level up, at the repo root.
+        project_root = os.path.dirname(settings.BASE_DIR)
 
-        for key, path in MODEL_PATHS.items():
+        model_paths = {
+            "churn":     os.path.join(project_root, "ml", "models", "churn_rf_model.pkl"),
+            "segment":   os.path.join(project_root, "ml", "models", "segmentation_model.pkl"),
+            "purchase":  os.path.join(project_root, "ml", "models", "purchase_model.pkl"),
+            "recommend": os.path.join(project_root, "ml", "models", "recommender_model.pkl"),
+        }
+
+        for key, path in model_paths.items():
             if os.path.exists(path):
                 try:
                     MODELS[key] = joblib.load(path)
