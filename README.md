@@ -65,6 +65,17 @@ Churn prediction is trained and served from `ml/`:
 - `ml/train_churn.py` — trains the Random Forest churn model, with MLflow tracking.
 - `ml/api_churn.py` — exposes the trained model for inference, wired into the Django API's `/churn/` endpoint.
 
+### Model Evaluation Artifacts
+
+- **Confusion Matrix**
+  ![Confusion Matrix](ml/artifacts/confusion_matrix.png)
+
+- **Feature Importance**
+  ![Feature Importance](ml/artifacts/feature_importance.png)
+
+- **ROC Curve**
+  ![ROC Curve](ml/artifacts/roc_curve.png)
+
 ## Machine Learning API
 
 Serve predictions via Django REST Framework.
