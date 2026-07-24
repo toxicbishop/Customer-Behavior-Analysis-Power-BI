@@ -63,7 +63,7 @@ customer_behavior_analysis/
 Churn prediction is trained and served from `ml/`:
 
 - `ml/train_churn.py` — trains the Random Forest churn model, with MLflow tracking.
-- `ml/api_churn.py` — exposes the trained model for inference, wired into the Django API's `/churn/` endpoint.
+- `ml/api_churn.py` — exposes the trained model for inference, wired into the Django API's `/api/churn/` endpoint.
 
 ### Model Evaluation Artifacts
 
@@ -82,10 +82,10 @@ Serve predictions via Django REST Framework.
 
 ### Endpoints
 
-- `/segment/` : Customer segmentation
-- `/predict/` : Purchase prediction
-- `/churn/` : Churn prediction
-- `/recommend/` : Product recommendation
+- `/api/segment/` : Customer segmentation
+- `/api/predict/` : Purchase prediction
+- `/api/churn/` : Churn prediction
+- `/api/recommend/` : Product recommendation
 
 ### Features
 
