@@ -10,5 +10,5 @@ seaborn==0.13.2
 ipykernel
 jupyter
 joblib==1.5.1
-pytest==8.4.1
-python-dotenv==1.1.1
+pytest==9.0.3
+python-dotenv==1.2.2
